@@ -44,4 +44,5 @@ public class Payment {
     private String sessionId;
     @Column(name = "amount_to_pay", nullable = false)
     private BigDecimal amountToPay;
+    private boolean isDeleted = false;
 }

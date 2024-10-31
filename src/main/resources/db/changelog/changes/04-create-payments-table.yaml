@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: 01
-      author: user
+      id: 04-create-payments-table
+      author: nikita_boyko
       changes:
         - createTable:
             tableName: payments

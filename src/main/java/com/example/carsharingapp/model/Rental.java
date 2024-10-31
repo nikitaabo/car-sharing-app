@@ -36,4 +36,7 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @Column(nullable = false)
+    private Boolean isActive = true;
+    private boolean isDeleted = false;
 }

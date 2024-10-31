@@ -34,4 +34,5 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    private boolean isDeleted = false;
 }
