@@ -35,4 +35,5 @@ public class Car {
     private int inventory;
     @Column(nullable = false)
     private BigDecimal dailyFee;
+    private boolean isDeleted = false;
 }
