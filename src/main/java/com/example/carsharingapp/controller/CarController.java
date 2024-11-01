@@ -46,14 +46,14 @@ public class CarController {
         return carService.findAll(pageable);
     }
 
-    @PreAuthorize("hasRole('MANAGER') || hasRole('CUSTOMER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     @Operation(summary = "Get a car", description = "Get a car by id")
     public CarDto getCarById(@PathVariable @Positive Long id) {
         return carService.findById(id);
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PutMapping("/{id}")
     @Operation(summary = "Update a car", description = "Update a car by id")
     public CarDto updateCar(@PathVariable Long id,
@@ -61,7 +61,7 @@ public class CarController {
         return carService.update(id, carRequestDto);
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PatchMapping("/{id}")
     @Operation(summary = "Update a car", description = "Update an inventory of car")
     public CarDto changeStatus(@PathVariable @Positive Long id,
@@ -69,7 +69,7 @@ public class CarController {
         return carService.updateCar(id, newInventory);
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a car", description = "Delete a car by id")
