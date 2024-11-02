@@ -9,6 +9,8 @@ public interface RentalService {
 
     List<RentalDto> findRentalsByUserAndStatus(Long userId, boolean isActive);
 
+    List<RentalDto> findRentalsByStatus(boolean isActive);
+
     RentalDto findRentalById(Long id);
 
     RentalDto setActualReturnDate(Long id);

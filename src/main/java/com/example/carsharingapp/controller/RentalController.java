@@ -47,11 +47,17 @@ public class RentalController {
             @RequestParam(name = "user_id", required = false) @Positive Long userId,
             @RequestParam(name = "is_active") boolean isActive,
             Authentication authentication) {
-        if (userId == null) {
-            User user = (User) authentication.getPrincipal();
-            return rentalService.findRentalsByUserAndStatus(user.getId(), isActive);
+        User currentUser = (User) authentication.getPrincipal();
+
+        if (currentUser.hasRoleManager()) {
+            if (userId != null) {
+                return rentalService.findRentalsByUserAndStatus(userId, isActive);
+            } else {
+                return rentalService.findRentalsByStatus(isActive);
+            }
+        } else {
+            return rentalService.findRentalsByUserAndStatus(currentUser.getId(), isActive);
         }
-        return rentalService.findRentalsByUserAndStatus(userId, isActive);
     }
 
     @PreAuthorize("hasRole('ROLE_MANAGER')")

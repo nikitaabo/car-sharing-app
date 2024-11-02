@@ -59,6 +59,14 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
+    public List<RentalDto> findRentalsByStatus(boolean isActive) {
+        List<Rental> rentals = rentalRepository.findByIsActive(isActive);
+        return rentals.stream()
+                .map(rentalMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public RentalDto findRentalById(Long id) {
         Rental rental = rentalRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + id));
