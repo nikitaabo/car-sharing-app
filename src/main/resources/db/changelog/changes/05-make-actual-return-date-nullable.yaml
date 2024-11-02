@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05-make-actual-return-date-nullable
+      author: nikita_boyko
+      changes:
+        - dropNotNullConstraint:
+            tableName: rentals
+            columnName: actual_return_date
+            columnDataType: DATE
