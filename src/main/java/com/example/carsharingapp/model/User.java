@@ -70,4 +70,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return !isDeleted;
     }
+
+    public boolean hasRoleManager() {
+        return role.equals(UserRole.MANAGER);
+    }
 }
