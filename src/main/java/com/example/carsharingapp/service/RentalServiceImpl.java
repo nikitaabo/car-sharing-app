@@ -2,6 +2,8 @@ package com.example.carsharingapp.service;
 
 import com.example.carsharingapp.dto.CreateRentalRequestDto;
 import com.example.carsharingapp.dto.RentalDto;
+import com.example.carsharingapp.exception.RentalException;
+import com.example.carsharingapp.exception.ReturnDateException;
 import com.example.carsharingapp.mapper.RentalMapper;
 import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.Rental;
@@ -24,6 +26,7 @@ public class RentalServiceImpl implements RentalService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -33,7 +36,7 @@ public class RentalServiceImpl implements RentalService {
                         + rentalRequestDto.getCarId()));
 
         if (car.getInventory() <= 0) {
-            throw new IllegalStateException("Car is not available for rental");
+            throw new RentalException("Car is not available for rental");
         }
 
         User user = userRepository.findById(userId)
@@ -46,6 +49,11 @@ public class RentalServiceImpl implements RentalService {
 
         car.setInventory(car.getInventory() - 1);
         carRepository.save(car);
+        String message = String.format("New rental created:\nUser ID: %d\nCar ID: %d"
+                        + "\nRental Date: %s\nReturn Date: %s",
+                userId, rentalRequestDto.getCarId(),
+                rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
+        notificationService.sendNotification(message);
 
         return rentalMapper.toDto(rentalRepository.save(rental));
     }
@@ -80,7 +88,7 @@ public class RentalServiceImpl implements RentalService {
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + id));
 
         if (!rental.getIsActive()) {
-            throw new IllegalStateException("Rental is already completed");
+            throw new ReturnDateException("Rental is already completed");
         }
 
         rental.setActualReturnDate(LocalDate.now());

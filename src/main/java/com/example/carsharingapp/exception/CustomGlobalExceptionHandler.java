@@ -60,4 +60,17 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             ConstraintViolationException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(RentalException.class)
+    public ResponseEntity<Object> handleRentalException(RentalException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Rental failed", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ReturnDateException.class)
+    public ResponseEntity<Object> handleReturnDateException(ReturnDateException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Setting return date failed",
+                ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
 }
