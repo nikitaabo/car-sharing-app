@@ -26,6 +26,7 @@ public class RentalServiceImpl implements RentalService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -48,6 +49,11 @@ public class RentalServiceImpl implements RentalService {
 
         car.setInventory(car.getInventory() - 1);
         carRepository.save(car);
+        String message = String.format("New rental created:\nUser ID: %d\nCar ID: %d"
+                        + "\nRental Date: %s\nReturn Date: %s",
+                userId, rentalRequestDto.getCarId(),
+                rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
+        notificationService.sendNotification(message);
 
         return rentalMapper.toDto(rentalRepository.save(rental));
     }

@@ -6,6 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      TELEGRAM_BOT_USERNAME: ${{secrets.TELEGRAM_BOT_USERNAME}}
+      TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 21
