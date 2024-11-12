@@ -16,12 +16,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
 public class RentalServiceImpl implements RentalService {
+    private static final Logger logger = LoggerFactory.getLogger(RentalServiceImpl.class);
     private final RentalRepository rentalRepository;
     private final CarRepository carRepository;
     private final UserRepository userRepository;
@@ -53,6 +56,7 @@ public class RentalServiceImpl implements RentalService {
                         + "\nRental Date: %s\nReturn Date: %s",
                 userId, rentalRequestDto.getCarId(),
                 rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
+        logger.info(message);
         notificationService.sendNotification(message);
 
         return rentalMapper.toDto(rentalRepository.save(rental));
@@ -99,6 +103,8 @@ public class RentalServiceImpl implements RentalService {
         carRepository.save(car);
 
         Rental updatedRental = rentalRepository.save(rental);
+        logger.info("Actual return date of rental with id {} is set, return date is {}",
+                id, rental.getReturnDate());
         return rentalMapper.toDto(updatedRental);
     }
 }

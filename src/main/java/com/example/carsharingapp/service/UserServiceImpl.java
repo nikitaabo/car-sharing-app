@@ -12,12 +12,15 @@ import com.example.carsharingapp.model.User;
 import com.example.carsharingapp.model.enums.UserRole;
 import com.example.carsharingapp.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
@@ -32,6 +35,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toModel(registrationRequestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.CUSTOMER);
+        logger.info("New user was registered with id {}", user.getId());
         return userMapper.toDto(userRepository.save(user));
     }
 
@@ -40,6 +44,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         user.setRole(roleRequestDto.getRole());
+        logger.info("User's role with id {} was changed", user.getId());
         return userMapper.toUserDto(userRepository.save(user));
     }
 
@@ -55,6 +60,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userProfileRequestDto.getFirstName());
         user.setLastName(userProfileRequestDto.getLastName());
         user.setEmail(userProfileRequestDto.getEmail());
+        logger.info("User's profile with id {} was changed", user.getId());
         return userMapper.toUserDto(userRepository.save(user));
     }
 }
