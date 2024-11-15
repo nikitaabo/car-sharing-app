@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 06-modify-session-url-length
+      author: nikita_boyko
+      changes:
+        - modifyDataType:
+            tableName: payments
+            columnName: session_url
+            newDataType: TEXT
