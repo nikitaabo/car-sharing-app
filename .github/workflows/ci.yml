@@ -10,6 +10,7 @@ jobs:
       TELEGRAM_BOT_USERNAME: ${{secrets.TELEGRAM_BOT_USERNAME}}
       TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
       JWT_SECRET: ${{secrets.JWT_SECRET}}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
 
     steps:
       - uses: actions/checkout@v2
