@@ -25,14 +25,15 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/registration")
-    @Operation(summary = "Register a new user", description = "Create a new user and save it in DB")
+    @Operation(summary = "Register a new users",
+            description = "Create a new users and save it in DB")
     public UserResponseDto registerUser(@RequestBody @Valid UserRegistrationRequestDto request)
             throws RegistrationException {
         return userService.register(request);
     }
 
     @PostMapping("/login")
-    @Operation(summary = "Login", description = "Authenticates an user and returns JWT token")
+    @Operation(summary = "Login", description = "Authenticates an users and returns JWT token")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
         return authenticationService.authenticate(request);
     }

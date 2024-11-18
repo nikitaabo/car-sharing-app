@@ -65,7 +65,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Find all cars and return their DTOs")
-    void findAllCars_ShouldReturnAllCarsDto() {
+    void findAllCars_GivenCarsInStore_ShouldReturnAllCarsDto() {
         // Given
         List<Car> cars = CarServiceTestUtil.getCars();
         List<CarDto> carDtos = CarServiceTestUtil.getCarDtos();
@@ -122,7 +122,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Delete car by ID")
-    void deleteById_ShouldDeleteCar() {
+    void deleteById_ValidId_ShouldDeleteCar() {
         // When
         carService.deleteById(1L);
 
@@ -132,7 +132,7 @@ public class CarServiceTest {
 
     @Test
     @DisplayName("Update car inventory and return updated DTO")
-    void updateCarInventory_ShouldReturnUpdatedCarDto() {
+    void updateCarInventory_ValidInventoryValue_ShouldReturnUpdatedCarDto() {
         // Given
         InventoryDto inventoryDto = new InventoryDto(15);
         Car car = CarServiceTestUtil.getCar("Tesla", "Model S",

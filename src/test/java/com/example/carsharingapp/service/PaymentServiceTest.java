@@ -53,7 +53,7 @@ class PaymentServiceTest {
     private PaymentServiceImpl paymentService;
 
     @Test
-    @DisplayName("Get a list of user's payments")
+    @DisplayName("Get a list of users's payments")
     void getPayments_WhenPaymentsExist_ShouldReturnPaymentDtos() {
         // Given
         Long userId = 1L;

@@ -54,7 +54,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         PaymentSessionDto paymentSessionDto = new PaymentSessionDto(
                 amount, "Rental" + rental.getCar().getModel() + rental.getCar().getBrand(),
-                "This is a session for car rental payment");
+                "This is a session for car rentals payment");
         Session stripeSession = stripeService.createStripeSession(
                 paymentSessionDto);
         payment.setSessionId(stripeSession.getId());

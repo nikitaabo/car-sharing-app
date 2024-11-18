@@ -48,7 +48,7 @@ class RentalServiceTest {
     private RentalServiceImpl rentalService;
 
     @Test
-    @DisplayName("Save new rental and return its DTO")
+    @DisplayName("Save new rentals and return its DTO")
     void addRental_WhenCarAndUserExist_ShouldSaveRental() {
         // Given
         final Long userId = 1L;
@@ -105,7 +105,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Find a rental by id and return its DTO")
+    @DisplayName("Find a rentals by id and return its DTO")
     void findRentalById_WhenRentalExists_ShouldReturnRentalDto() {
         // Given
         Long rentalId = 1L;
@@ -124,7 +124,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when rental is not found")
+    @DisplayName("Should throw exception when rentals is not found")
     void findRentalById_WhenRentalNotFound_ShouldThrowEntityNotFoundException() {
         // Given
         Long rentalId = 1L;
@@ -161,7 +161,7 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when rental is not active")
+    @DisplayName("Should throw exception when rentals is not active")
     void setActualReturnDate_WhenRentalIsNotActive_ShouldThrowReturnDateException() {
         // Given
         Long rentalId = 1L;

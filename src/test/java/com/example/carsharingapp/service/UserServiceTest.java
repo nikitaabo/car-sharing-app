@@ -38,7 +38,7 @@ public class UserServiceTest {
     private UserServiceImpl userService;
 
     @Test
-    @DisplayName("Register a new user")
+    @DisplayName("Register a new users")
     public void register_WhenEmailIsUnique_ShouldSaveNewUser() {
         // Given
         UserRegistrationRequestDto registrationRequestDto = new UserRegistrationRequestDto();
@@ -77,7 +77,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Update user role")
+    @DisplayName("Update users role")
     public void updateUserRole_WhenUserExists_ShouldUpdateRole() {
         // Given
         Long userId = 1L;
@@ -108,7 +108,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Get an user's profile")
+    @DisplayName("Get an users's profile")
     public void getCurrentUserProfile_WhenUserExists_ShouldReturnUserProfile() {
         // Given
         User user = new User();
@@ -131,7 +131,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Update user profile")
+    @DisplayName("Update users profile")
     public void updateUserProfile_WhenUserExists_ShouldUpdateUserProfile() {
         // Given
         final Long userId = 1L;

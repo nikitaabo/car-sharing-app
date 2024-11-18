@@ -32,7 +32,7 @@ public class RentalController {
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PostMapping
-    @Operation(summary = "Create a rental", description = "Create a new rental")
+    @Operation(summary = "Create a rentals", description = "Create a new rentals")
     public RentalDto createRental(@RequestBody @Valid CreateRentalRequestDto rentalRequestDto,
                                   Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -41,8 +41,8 @@ public class RentalController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping
-    @Operation(summary = "Get rentals", description = "Get rentals by user ID and whether "
-            + "the rental is still active or not")
+    @Operation(summary = "Get rentals", description = "Get rentals by users ID and whether "
+            + "the rentals is still active or not")
     public List<RentalDto> getRentalsByUserAndStatus(
             @RequestParam(name = "user_id", required = false) @Positive Long userId,
             @RequestParam(name = "is_active") boolean isActive,
@@ -62,7 +62,7 @@ public class RentalController {
 
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     @GetMapping("/{id}")
-    @Operation(summary = "Get a rental", description = "Get a rental by id")
+    @Operation(summary = "Get a rentals", description = "Get a rentals by id")
     public RentalDto getRentalById(@PathVariable @Positive Long id) {
         return rentalService.findRentalById(id);
     }

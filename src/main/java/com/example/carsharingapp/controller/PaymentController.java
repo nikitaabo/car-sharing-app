@@ -31,7 +31,7 @@ public class PaymentController {
     @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping
     @ResponseBody
-    @Operation(summary = "Get payments", description = "Get user's payments")
+    @Operation(summary = "Get payments", description = "Get users's payments")
     public List<PaymentDto> getPayments(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return paymentService.getPayments(user.getId());

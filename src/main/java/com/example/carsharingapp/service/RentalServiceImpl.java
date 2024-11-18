@@ -39,7 +39,7 @@ public class RentalServiceImpl implements RentalService {
                         + rentalRequestDto.getCarId()));
 
         if (car.getInventory() <= 0) {
-            throw new RentalException("Car is not available for rental");
+            throw new RentalException("Car is not available for rentals");
         }
 
         User user = userRepository.findById(userId)
@@ -52,7 +52,7 @@ public class RentalServiceImpl implements RentalService {
 
         car.setInventory(car.getInventory() - 1);
         carRepository.save(car);
-        String message = String.format("New rental created:\nUser ID: %d\nCar ID: %d"
+        String message = String.format("New rentals created:\nUser ID: %d\nCar ID: %d"
                         + "\nRental Date: %s\nReturn Date: %s",
                 userId, rentalRequestDto.getCarId(),
                 rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
@@ -103,7 +103,7 @@ public class RentalServiceImpl implements RentalService {
         carRepository.save(car);
 
         Rental updatedRental = rentalRepository.save(rental);
-        logger.info("Actual return date of rental with id {} is set, return date is {}",
+        logger.info("Actual return date of rentals with id {} is set, return date is {}",
                 id, rental.getReturnDate());
         return rentalMapper.toDto(updatedRental);
     }
