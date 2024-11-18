@@ -76,7 +76,29 @@ public class RentalControllerTest {
     @WithUserDetails("user@gmail.com")
     @Test
     @DisplayName("Get all rentals")
-    void getAllRentals_GivenRentalsInStore_ShouldReturnAllRentals() throws Exception {
+    void getAllRentals_GivenRentalsInStoreAndUserIsCustomerWithUserId_ShouldReturnAllRentalsOfUser()
+            throws Exception {
+        // Given
+        Long userId = 1L;
+
+        // When
+        MvcResult result = mockMvc.perform(get("/rentals?user_id={id}&is_active=true", userId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Then
+        RentalDto[] rentals = objectMapper.readValue(
+                result.getResponse().getContentAsString(), RentalDto[].class);
+        assertNotNull(rentals);
+        assertEquals(rentals.length, 2);
+    }
+
+    @WithUserDetails("manager@gmail.com")
+    @Test
+    @DisplayName("Get all rentals")
+    void getAllRentals_GivenRentalsInStoreAndUserIsManager_ShouldReturnAllRentalsOfUsers()
+            throws Exception {
         // When
         MvcResult result = mockMvc.perform(get("/rentals?is_active=true")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
