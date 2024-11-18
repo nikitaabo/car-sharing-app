@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "User management", description = "Endpoints for managing user "
+@Tag(name = "User management", description = "Endpoints for managing users "
         + "authentication and profiles")
 @Validated
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PatchMapping("/{id}/role")
-    @Operation(summary = "Update user role", description = "Update the role of a specific user")
+    @Operation(summary = "Update users role", description = "Update the role of a specific users")
     public UserDto updateUserRole(
             @PathVariable @Positive Long id,
             @RequestBody @Valid UpdateUserRoleRequestDto roleRequestDto) {
@@ -41,7 +41,7 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
     @Operation(summary = "Get my profile info", description = "Retrieve profile information of "
-            + "the authenticated user")
+            + "the authenticated users")
     public UserDto getMyProfile(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return userService.getCurrentUserProfile(user);
@@ -50,7 +50,7 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @PatchMapping("/me")
     @Operation(summary = "Update profile info", description = "Update profile information of "
-            + "the authenticated user")
+            + "the authenticated users")
     public UserDto updateProfileInfo(
             @RequestBody @Valid UpdateUserProfileRequestDto userProfileRequestDto,
             Authentication authentication) {

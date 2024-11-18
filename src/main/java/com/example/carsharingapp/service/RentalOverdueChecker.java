@@ -30,7 +30,7 @@ public class RentalOverdueChecker {
         } else {
             overdueRentals.forEach(rental -> {
                 String message = String.format(
-                        "Overdue rental detected:\nRental ID: %s\nUser ID: %d\nCar ID: %d"
+                        "Overdue rentals detected:\nRental ID: %s\nUser ID: %d\nCar ID: %d"
                                 + "\nRental Date: %s\nReturn Date: %s"
                                 + "\nActual return date: %s",
                         rental.getId(),

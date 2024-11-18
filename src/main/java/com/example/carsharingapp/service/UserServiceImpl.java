@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toModel(registrationRequestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.CUSTOMER);
-        logger.info("New user was registered with id {}", user.getId());
+        logger.info("New users was registered with id {}", user.getId());
         return userMapper.toDto(userRepository.save(user));
     }
 
