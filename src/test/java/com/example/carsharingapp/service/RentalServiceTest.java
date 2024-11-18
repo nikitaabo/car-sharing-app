@@ -1,7 +1,14 @@
 package com.example.carsharingapp.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.example.carsharingapp.dto.CreateRentalRequestDto;
 import com.example.carsharingapp.dto.RentalDto;
@@ -18,6 +25,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,9 +48,10 @@ class RentalServiceTest {
     private RentalServiceImpl rentalService;
 
     @Test
+    @DisplayName("Save new rental and return its DTO")
     void addRental_WhenCarAndUserExist_ShouldSaveRental() {
         // Given
-        Long userId = 1L;
+        final Long userId = 1L;
         Long carId = 2L;
         CreateRentalRequestDto rentalRequestDto = new CreateRentalRequestDto();
         rentalRequestDto.setCarId(carId);
@@ -78,6 +87,7 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw exception when car is not available")
     void addRental_WhenCarNotAvailable_ShouldThrowRentalException() {
         // Given
         Long carId = 2L;
@@ -95,6 +105,7 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Find a rental by id and return its DTO")
     void findRentalById_WhenRentalExists_ShouldReturnRentalDto() {
         // Given
         Long rentalId = 1L;
@@ -113,6 +124,7 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw exception when rental is not found")
     void findRentalById_WhenRentalNotFound_ShouldThrowEntityNotFoundException() {
         // Given
         Long rentalId = 1L;
@@ -124,6 +136,7 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Set actual return date")
     void setActualReturnDate_WhenRentalIsActive_ShouldUpdateReturnDate() {
         // Given
         Long rentalId = 1L;
@@ -148,6 +161,7 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw exception when rental is not active")
     void setActualReturnDate_WhenRentalIsNotActive_ShouldThrowReturnDateException() {
         // Given
         Long rentalId = 1L;
@@ -161,9 +175,10 @@ class RentalServiceTest {
     }
 
     @Test
+    @DisplayName("Find rentals by status")
     void findRentalsByStatus_ShouldReturnListOfRentals_WhenStatusIsProvided() {
         // Given
-        boolean isActive = true;
+        final boolean isActive = true;
 
         Rental rental1 = new Rental();
         rental1.setId(1L);
