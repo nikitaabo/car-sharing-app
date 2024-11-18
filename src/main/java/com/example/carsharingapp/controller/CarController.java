@@ -64,7 +64,7 @@ public class CarController {
     @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PatchMapping("/{id}")
     @Operation(summary = "Update a car", description = "Update an inventory of car")
-    public CarDto changeStatus(@PathVariable @Positive Long id,
+    public CarDto changeInventory(@PathVariable @Positive Long id,
                                  @RequestBody @Valid InventoryDto newInventory) {
         return carService.updateCar(id, newInventory);
     }
