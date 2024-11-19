@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "73785955-6d5d-4d46-9fb9-89b12cd33317",
+		"name": "car-sharing-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30514767"
+	},
+	"item": [
+		{
+			"name": "Working with cars",
+			"item": [
+				{
+					"name": "Add a new car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"4\",\n    \"brand\": \"Mazda\",\n    \"type\": \"SEDAN\",\n    \"inventory\": 23,\n    \"dailyFee\": 75\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all cars",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a car by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cars/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update fully a car by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"Q7\",\n    \"brand\": \"Audi\",\n    \"type\": \"SEDAN\",\n    \"inventory\": 30,\n    \"dailyFee\": 65\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cars/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update partly a car b id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"inventory\": 23\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cars/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a car by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYW5hZ2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzMwNDU4MTgwLCJleHAiOjE3MzA0NTg0ODB9.YYinjh4X1MRODMndTp-0QZDivoy2DjXqBvWKGLgMAHQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains requests for working with car entity."
+		},
+		{
+			"name": "Working with user",
+			"item": [
+				{
+					"name": "Register a new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"nikita@gmail.com\",\n  \"password\": \"pass1234\",\n  \"repeatedPassword\": \"pass1234\",\n  \"firstName\": \"User\",\n  \"lastName\": \"Cool\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"nikita@gmail.com\",\n  \"password\": \"pass1234\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update role of user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"CUSTOMER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/2/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile info about the current user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile info about user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Nikita\",\n    \"lastName\": \"Boyko\",\n    \"email\": \"nikita@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains requests for register / login users."
+		},
+		{
+			"name": "Working with rentals",
+			"item": [
+				{
+					"name": "Add a new rental",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWRpbUBnbWFpbC5jb20iLCJpYXQiOjE3MzE5NjY3NzMsImV4cCI6MTczMTk2NzA3M30.5N93sZF9u51XQQ0N4ovOIHi2XjoZjBjnKoL_Cg1sio4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rentalDate\": \"2024-11-13\",\n    \"returnDate\": \"2024-11-25\",\n    \"carId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rentals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rentals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get rentals",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rentals?is_active=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rentals"
+							],
+							"query": [
+								{
+									"key": "is_active",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a rental by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWRpbUBnbWFpbC5jb20iLCJpYXQiOjE3MzE5NjY3NzMsImV4cCI6MTczMTk2NzA3M30.5N93sZF9u51XQQ0N4ovOIHi2XjoZjBjnKoL_Cg1sio4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rentals/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rentals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set actual return date",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWtpdGFAZ21haWwuY29tIiwiaWF0IjoxNzMxOTY2OTU0LCJleHAiOjE3MzE5NjcyNTR9.08_WNrbdnTXCAP2RJxIWVx79KmmRED1qx2l2fveo6yA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rentals/21/return",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rentals",
+								"21",
+								"return"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Working with payments",
+			"item": [
+				{
+					"name": "Get user's payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWRpbUBnbWFpbC5jb20iLCJpYXQiOjE3MzE5NjcxODksImV4cCI6MTczMTk2NzQ4OX0.4EH6yV5wEELUiCY6Qi_vD1wDRPpNwGpfMQbUwZw8PUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWRpbUBnbWFpbC5jb20iLCJpYXQiOjE3MzE5NjcxODksImV4cCI6MTczMTk2NzQ4OX0.4EH6yV5wEELUiCY6Qi_vD1wDRPpNwGpfMQbUwZw8PUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rentalId\":19,\n    \"paymentType\":\"PAYMENT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
