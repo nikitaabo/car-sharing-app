@@ -48,7 +48,7 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 ### **Steps to Launch Application**
 
 1. **Clone the repository**
-   ```
+   ```bash
    git clone git@github.com:your-username/car-sharing-app.git
    cd car-sharing-app
    ```
@@ -77,18 +77,19 @@ This application is designed to simplify vehicle rentals, providing a seamless e
    
 3. **Build and start the application**
 Use Docker Compose to set up the containers:
+```bash
   docker-compose up --build
-
-The application will be accessible at http://localhost:<SPRING_LOCAL_PORT>/.
+```
+The application will be accessible at `http://localhost:<SPRING_LOCAL_PORT>/`.
 
 ## Running Tests
 To run unit and integration tests using Testcontainers:
-```
+```bash
 mvn clean test
 ```
 ## API Documentation
 Swagger UI is available for testing the API and is accessible at:
-http://localhost:<SPRING_LOCAL_PORT>/swagger-ui.html
+`http://localhost:<SPRING_LOCAL_PORT>/swagger-ui.html`.
 
 This documentation includes endpoints for:
 
@@ -119,21 +120,21 @@ Leveraged official documentation and examples to ensure smooth integration with 
 Challenge:
 There was a need to provide an opportunity to create online payments for rentals.
 Solution:
-Leveraged official documentation and examples to ensure smooth integration with application.
+Leveraged official documentation and examples to ensure smooth integration with the application.
 
 ## Postman Collection
 A Postman collection with all API requests for testing and interacting with the application is included in the project.
 
 ### How to Use
-1. Locate the collection in the postman folder:
-  * File path: ./postman/car_sharing_postman_collection.json
+1. Locate the collection in the `postman` folder:
+  * File path: `./postman/car_sharing_postman_collection.json`
 
 Import into Postman:
 
 2. Open Postman.
   * Click the Import button in the top-left corner.
-  * Choose the file from the postman folder.
-  * The collection will be added to your workspace, ready for testing!
+  * Choose the file from the `postman` folder.
+  * The collection will be added to your workspace and will be ready for testing!
 
 This project demonstrates my ability to design and develop a modern backend application for real-world scenarios using Java and related technologies.
 Feel free to explore, test, and contribute! 😊
