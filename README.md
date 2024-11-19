@@ -56,19 +56,23 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 2. **Clone the repository**
    ```
+   TELEGRAM_BOT_USERNAME=<your_telegram_bot_username>
+   TELEGRAM_BOT_TOKEN=<your_telegram_bot_token>
+   
+   JWT_SECRET=<your_jwt_secret>
+   
+   STRIPE_SECRET_KEY=<your_stripe_secret_key>
+   
    MYSQLDB_DATABASE=<your_database_name>
-    MYSQLDB_USER=<your_username>
-    MYSQLDB_PASSWORD=<your_password>
-    MYSQLDB_ROOT_PASSWORD=<your_root_password>
-    
-    SPRING_DATASOURCE_PORT=<your_spring_datasource_port>
-    MYSQLDB_PORT=<your_mysql_port>
-    
-    SPRING_LOCAL_PORT=<your_spring_local_port>
-    SPRING_DOCKER_PORT=<your_spring_docker_port>
-    
-    TELEGRAM_BOT_USERNAME=<your_bot_username>
-    TELEGRAM_BOT_TOKEN=<your_bot_token>
+   MYSQLDB_USER=<your_username>
+   MYSQLDB_PASSWORD=<your_password>
+   MYSQLDB_ROOT_PASSWORD=<your_root_password>
+   
+   SPRING_DATASOURCE_PORT=<your_spring_datasource_port>
+   MYSQLDB_LOCAL_PORT=<your_local_port>
+   MYSQLDB_DOCKER_PORT=<your_docker_port>
+   SPRING_LOCAL_PORT=<your_spring_local_port>
+   SPRING_DOCKER_PORT=<your_spring_docker_port>
    ```
    
 3. **Build and start the application**
