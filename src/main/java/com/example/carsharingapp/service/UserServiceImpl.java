@@ -12,15 +12,14 @@ import com.example.carsharingapp.model.User;
 import com.example.carsharingapp.model.enums.UserRole;
 import com.example.carsharingapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toModel(registrationRequestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.CUSTOMER);
-        logger.info("New users was registered with id {}", user.getId());
+        log.info("New users was registered with id {}", user.getId());
         return userMapper.toDto(userRepository.save(user));
     }
 
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         user.setRole(roleRequestDto.getRole());
-        logger.info("User's role with id {} was changed", user.getId());
+        log.info("User's role with id {} was changed", user.getId());
         return userMapper.toUserDto(userRepository.save(user));
     }
 
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userProfileRequestDto.getFirstName());
         user.setLastName(userProfileRequestDto.getLastName());
         user.setEmail(userProfileRequestDto.getEmail());
-        logger.info("User's profile with id {} was changed", user.getId());
+        log.info("User's profile with id {} was changed", user.getId());
         return userMapper.toUserDto(userRepository.save(user));
     }
 }

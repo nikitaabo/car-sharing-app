@@ -20,14 +20,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentServiceImpl implements PaymentService {
-    private static final Logger logger = LoggerFactory.getLogger(PaymentServiceImpl.class);
     private static final Double FINE_MULTIPLIER = 1.5;
     private final PaymentRepository paymentRepository;
     private final RentalRepository rentalRepository;
@@ -67,7 +66,7 @@ public class PaymentServiceImpl implements PaymentService {
                         + "\nSession Id: %s\nStatus: %s",
                 payment.getType(), payment.getRental().getId(),
                 payment.getSessionId(), payment.getStatus());
-        logger.info(message);
+        log.info(message);
         notificationService.sendNotification(message);
         return paymentMapper.toDto(paymentRepository.save(payment));
     }
@@ -78,7 +77,7 @@ public class PaymentServiceImpl implements PaymentService {
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
         payment.setStatus(Status.PAID);
-        logger.info("Payment with session id {} is successful.", sessionId);
+        log.info("Payment with session id {} is successful.", sessionId);
         notificationService.sendNotification("Payment with session id {} is successful.");
         paymentRepository.save(payment);
     }
@@ -89,7 +88,7 @@ public class PaymentServiceImpl implements PaymentService {
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
         payment.setStatus(Status.CANCELED);
-        logger.info("Payment with session id {} is canceled.", sessionId);
+        log.info("Payment with session id {} is canceled.", sessionId);
         notificationService.sendNotification("Payment with session id {} is canceled.");
         paymentRepository.save(payment);
     }

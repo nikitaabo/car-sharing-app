@@ -4,8 +4,7 @@ import com.example.carsharingapp.exception.NotificationBotSendMessageException;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -15,8 +14,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationBot extends TelegramLongPollingBot {
-    private static final Logger logger = LoggerFactory.getLogger(NotificationBot.class);
     @Value("${telegram.bot.token}")
     private String botToken;
     @Value("${telegram.bot.username}")
@@ -49,7 +48,7 @@ public class NotificationBot extends TelegramLongPollingBot {
                 📌 Overdue rentals                                           
                 Enjoy using this bot!
                 """.formatted(name);
-        logger.info("Sending a message to {}, message: {}.", name, message);
+        log.info("Sending a message to {}, message: {}.", name, message);
         sendMessage(message);
     }
 
@@ -58,9 +57,9 @@ public class NotificationBot extends TelegramLongPollingBot {
         SendMessage message = new SendMessage(chatId, text);
         try {
             execute(message);
-            logger.info("Message sent successfully (chat id - {}, message - {}.)", chatId, text);
+            log.info("Message sent successfully (chat id - {}, message - {}.)", chatId, text);
         } catch (TelegramApiException e) {
-            logger.error("Sending of message failed (chat id - {}, message - {}.)", chatId, text);
+            log.error("Sending of message failed (chat id - {}, message - {}.)", chatId, text);
             throw new NotificationBotSendMessageException("There was an error during "
                     + "sending a message: " + text, e);
         }

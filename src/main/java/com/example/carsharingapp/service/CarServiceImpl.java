@@ -9,22 +9,21 @@ import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.repository.CarRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CarServiceImpl implements CarService {
-    private static final Logger logger = LoggerFactory.getLogger(CarServiceImpl.class);
     private final CarRepository carRepository;
     private final CarMapper carMapper;
 
     @Override
     public CarDto save(CreateCarRequestDto carRequestDto) {
         Car car = carMapper.toModel(carRequestDto);
-        logger.info("New car with id {} is created.", car.getId());
+        log.info("New car with id {} is created.", car.getId());
         return carMapper.toDto(carRepository.save(car));
     }
 
@@ -44,7 +43,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public void deleteById(Long id) {
         carRepository.deleteById(id);
-        logger.info("Car with id {} was deleted.", id);
+        log.info("Car with id {} was deleted.", id);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("There's not car with id: " + id));
         carMapper.updateCarFromDto(carRequestDto, car);
-        logger.info("Car with id {} is updated.", id);
+        log.info("Car with id {} is updated.", id);
         return carMapper.toDto(carRepository.save(car));
     }
 
@@ -61,7 +60,7 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Car not found"));
         car.setInventory(newInventory.inventory());
-        logger.info("Inventory of car with id {} is updated.", id);
+        log.info("Inventory of car with id {} is updated.", id);
         return carMapper.toDto(carRepository.save(car));
     }
 }
