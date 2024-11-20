@@ -9,7 +9,7 @@ import com.example.carsharingapp.model.Rental;
 import com.example.carsharingapp.model.enums.Status;
 import com.example.carsharingapp.model.enums.Type;
 import com.example.carsharingapp.repository.PaymentRepository;
-import com.example.carsharingapp.repository.RentalRepository;
+import com.example.carsharingapp.repository.rental.RentalRepository;
 import com.stripe.model.checkout.Session;
 import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;

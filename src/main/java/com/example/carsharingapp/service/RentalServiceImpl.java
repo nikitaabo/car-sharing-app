@@ -9,14 +9,16 @@ import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.Rental;
 import com.example.carsharingapp.model.User;
 import com.example.carsharingapp.repository.CarRepository;
-import com.example.carsharingapp.repository.RentalRepository;
 import com.example.carsharingapp.repository.UserRepository;
+import com.example.carsharingapp.repository.rental.RentalRepository;
+import com.example.carsharingapp.repository.rental.RentalSpecification;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,17 +64,9 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public List<RentalDto> findRentalsByUserAndStatus(Long userId, boolean isActive) {
-        List<Rental> rentals = rentalRepository.findByUserIdAndIsActive(userId, isActive);
-        return rentals.stream()
-                .map(rentalMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RentalDto> findRentalsByStatus(boolean isActive) {
-        List<Rental> rentals = rentalRepository.findByIsActive(isActive);
-        return rentals.stream()
+    public List<RentalDto> findRentals(Long userId, boolean isActive) {
+        Specification<Rental> spec = RentalSpecification.byUserAndStatus(userId, isActive);
+        return rentalRepository.findAll(spec).stream()
                 .map(rentalMapper::toDto)
                 .collect(Collectors.toList());
     }

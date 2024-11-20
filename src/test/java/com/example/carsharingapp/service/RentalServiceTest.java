@@ -19,8 +19,8 @@ import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.Rental;
 import com.example.carsharingapp.model.User;
 import com.example.carsharingapp.repository.CarRepository;
-import com.example.carsharingapp.repository.RentalRepository;
 import com.example.carsharingapp.repository.UserRepository;
+import com.example.carsharingapp.repository.rental.RentalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.domain.Specification;
 
 @ExtendWith(MockitoExtension.class)
 class RentalServiceTest {
@@ -175,9 +176,10 @@ class RentalServiceTest {
     }
 
     @Test
-    @DisplayName("Find rentals by status")
-    void findRentalsByStatus_ShouldReturnListOfRentals_WhenStatusIsProvided() {
+    @DisplayName("Should return rentals filtered by user ID and active status")
+    void findRentals_ShouldReturnFilteredRentals() {
         // Given
+        final Long userId = 1L;
         final boolean isActive = true;
 
         Rental rental1 = new Rental();
@@ -196,20 +198,22 @@ class RentalServiceTest {
         RentalDto rentalDto2 = new RentalDto();
         rentalDto2.setId(2L);
 
-        when(rentalRepository.findByIsActive(isActive)).thenReturn(rentals);
+        final List<RentalDto> rentalDtos = List.of(rentalDto1, rentalDto2);
+
+        when(rentalRepository.findAll(any(Specification.class))).thenReturn(rentals);
         when(rentalMapper.toDto(rental1)).thenReturn(rentalDto1);
         when(rentalMapper.toDto(rental2)).thenReturn(rentalDto2);
 
         // When
-        List<RentalDto> result = rentalService.findRentalsByStatus(isActive);
+        List<RentalDto> result = rentalService.findRentals(userId, isActive);
 
         // Then
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals(rentalDto1.getId(), result.get(0).getId());
-        assertEquals(rentalDto2.getId(), result.get(1).getId());
-        verify(rentalRepository, times(1)).findByIsActive(isActive);
-        verify(rentalMapper, times(2)).toDto(any(Rental.class));
-    }
+        assertEquals(rentalDtos, result);
 
+        verify(rentalRepository).findAll(any(Specification.class));
+        verify(rentalMapper).toDto(rental1);
+        verify(rentalMapper).toDto(rental2);
+    }
 }

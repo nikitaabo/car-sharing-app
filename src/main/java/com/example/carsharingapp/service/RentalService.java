@@ -7,11 +7,9 @@ import java.util.List;
 public interface RentalService {
     RentalDto addRental(CreateRentalRequestDto rentalRequestDto, Long userId);
 
-    List<RentalDto> findRentalsByUserAndStatus(Long userId, boolean isActive);
-
-    List<RentalDto> findRentalsByStatus(boolean isActive);
-
     RentalDto findRentalById(Long id);
 
     RentalDto setActualReturnDate(Long id);
+
+    List<RentalDto> findRentals(Long userId, boolean isActive);
 }

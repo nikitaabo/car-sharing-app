@@ -50,13 +50,9 @@ public class RentalController {
         User currentUser = (User) authentication.getPrincipal();
 
         if (currentUser.hasRoleManager()) {
-            if (userId != null) {
-                return rentalService.findRentalsByUserAndStatus(userId, isActive);
-            } else {
-                return rentalService.findRentalsByStatus(isActive);
-            }
+            return rentalService.findRentals(userId, isActive);
         } else {
-            return rentalService.findRentalsByUserAndStatus(currentUser.getId(), isActive);
+            return rentalService.findRentals(currentUser.getId(), isActive);
         }
     }
 
