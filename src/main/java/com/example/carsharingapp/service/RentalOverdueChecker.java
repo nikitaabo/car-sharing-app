@@ -1,7 +1,7 @@
 package com.example.carsharingapp.service;
 
 import com.example.carsharingapp.model.Rental;
-import com.example.carsharingapp.repository.rental.RentalRepository;
+import com.example.carsharingapp.repository.RentalRepository;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

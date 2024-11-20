@@ -16,7 +16,7 @@ import com.example.carsharingapp.exception.RegistrationException;
 import com.example.carsharingapp.mapper.UserMapper;
 import com.example.carsharingapp.model.User;
 import com.example.carsharingapp.model.enums.UserRole;
-import com.example.carsharingapp.repository.user.UserRepository;
+import com.example.carsharingapp.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.example.carsharingapp.repository.payment;
+package com.example.carsharingapp.repository;
 
 import com.example.carsharingapp.model.Payment;
 import java.util.List;

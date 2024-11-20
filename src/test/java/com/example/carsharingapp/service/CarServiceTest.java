@@ -14,7 +14,7 @@ import com.example.carsharingapp.exception.EntityNotFoundException;
 import com.example.carsharingapp.mapper.CarMapper;
 import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.enums.CarType;
-import com.example.carsharingapp.repository.car.CarRepository;
+import com.example.carsharingapp.repository.CarRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;

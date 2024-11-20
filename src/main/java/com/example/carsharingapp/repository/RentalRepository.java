@@ -1,4 +1,4 @@
-package com.example.carsharingapp.repository.rental;
+package com.example.carsharingapp.repository;
 
 import com.example.carsharingapp.model.Rental;
 import java.time.LocalDate;

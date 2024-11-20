@@ -6,7 +6,7 @@ import com.example.carsharingapp.dto.InventoryDto;
 import com.example.carsharingapp.exception.EntityNotFoundException;
 import com.example.carsharingapp.mapper.CarMapper;
 import com.example.carsharingapp.model.Car;
-import com.example.carsharingapp.repository.car.CarRepository;
+import com.example.carsharingapp.repository.CarRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public class CarServiceImpl implements CarService {
     public CarDto update(Long id, CreateCarRequestDto carRequestDto) {
         Car car = carRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("There's not car with id: " + id));
-        carMapper.updateBookFromDto(carRequestDto, car);
+        carMapper.updateCarFromDto(carRequestDto, car);
         logger.info("Car with id {} is updated.", id);
         return carMapper.toDto(carRepository.save(car));
     }
