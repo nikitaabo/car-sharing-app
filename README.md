@@ -9,18 +9,18 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 ## Technologies Used
 
-- **Spring Boot** - Backend framework for building the core application.  
-- **Spring Security** - For managing authentication and authorization.  
-- **Spring Data JPA** - For database interaction and ORM.  
-- **MySQL** - Relational database for storing vehicle, user, and rental information.  
-- **Docker** - Containerization for consistent deployment.  
-- **Swagger** - API documentation and testing.  
-- **MapStruct** - Object mapping for DTOs and entities.  
-- **Liquibase** - Database change management and version control.  
-- **JUnit & Mockito** - Unit testing for service and controller layers.  
-- **Testcontainers** - Integration testing with real databases.  
-- **Telegram Bots API** - Integrated bot for sending notifications about rentals.
-- **Stripe API** - Integrated service for creating and processing online payments
+- **Spring Boot** - Backend framework for building the core application. Version - 3.3.5  
+- **Spring Security** - For managing authentication and authorization. Version - 3.3.5    
+- **Spring Data JPA** - For database interaction and ORM. Version - 3.3.5    
+- **MySQL** - Relational database for storing vehicle, user, and rental information. Version - 8.3.0     
+- **Docker** - Containerization for consistent deployment. Version - 27.3.1   
+- **Swagger** - API documentation and testing. Version - 2.1.0    
+- **MapStruct** - Object mapping for DTOs and entities. Version - 1.5.5.Final   
+- **Liquibase** - Database change management and version control. Version - 4.27.0    
+- **JUnit & Mockito** - Unit testing for service and controller layers. Version - 5.11.0    
+- **Testcontainers** - Integration testing with real databases. Version - 1.18.0   
+- **Telegram Bots API** - Integrated bot for sending notifications about rentals. Version - 6.0.1  
+- **Stripe API** - Integrated service for creating and processing online payments. Version - 24.0.0 
 
 ---
 
@@ -54,7 +54,7 @@ This application is designed to simplify vehicle rentals, providing a seamless e
    ```
 
 
-2. **Clone the repository**
+2. **Set up the environment by creating a `.env` file with the following variables:**
    ```
    TELEGRAM_BOT_USERNAME=<your_telegram_bot_username>
    TELEGRAM_BOT_TOKEN=<your_telegram_bot_token>
