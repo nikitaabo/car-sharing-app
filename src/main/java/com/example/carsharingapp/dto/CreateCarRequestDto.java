@@ -1,6 +1,6 @@
 package com.example.carsharingapp.dto;
 
-import com.example.carsharingapp.model.enums.CarType;
+import com.example.carsharingapp.model.Car;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -14,7 +14,7 @@ public class CreateCarRequestDto {
     @NotBlank(message = "Brand is required")
     private String brand;
     @NotNull(message = "Car type is required")
-    private CarType type;
+    private Car.CarType type;
     @NotNull(message = "Inventory is required")
     @Positive(message = "Inventory must be positive")
     private int inventory;

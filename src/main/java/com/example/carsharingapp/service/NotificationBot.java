@@ -4,7 +4,6 @@ import com.example.carsharingapp.exception.ChatNotFoundException;
 import com.example.carsharingapp.exception.NotificationBotSendMessageException;
 import java.util.HashSet;
 import java.util.Set;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +13,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Configuration
-@RequiredArgsConstructor
 @Slf4j
 public class NotificationBot extends TelegramLongPollingBot {
-    @Value("${telegram.bot.token}")
-    private String botToken;
-    @Value("${telegram.bot.username}")
-    private String botName;
+    private final String botToken;
+    private final String botName;
     private final Set<String> activeChatIds = new HashSet<>();
+
+    public NotificationBot(@Value("${telegram.bot.token}") String botToken,
+                           @Value("${telegram.bot.username}") String botName) {
+        this.botToken = botToken;
+        this.botName = botName;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {

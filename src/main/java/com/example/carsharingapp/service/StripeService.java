@@ -1,7 +1,6 @@
 package com.example.carsharingapp.service;
 
 import com.example.carsharingapp.dto.PaymentSessionDto;
-import com.example.carsharingapp.exception.BookingException;
 import com.example.carsharingapp.exception.PaymentException;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -11,7 +10,6 @@ import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -67,22 +65,6 @@ public class StripeService {
         } catch (StripeException ex) {
             log.error("Error during Stripe session creation: ", ex);
             throw new PaymentException("Cant create stripe session");
-        }
-    }
-
-    public Boolean isSessionPaid(String sessionId) {
-        try {
-            return Objects.equals(Session.retrieve(sessionId).getPaymentStatus(), STATUS_PAID);
-        } catch (StripeException ex) {
-            throw new PaymentException("Cant find stripe session");
-        }
-    }
-
-    public void expireSession(String sessionId) {
-        try {
-            Session.retrieve(sessionId).expire();
-        } catch (StripeException e) {
-            throw new BookingException("Unsuccessful try to expire stripe session", e);
         }
     }
 

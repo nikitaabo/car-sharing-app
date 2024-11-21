@@ -1,7 +1,5 @@
 package com.example.carsharingapp.model;
 
-import com.example.carsharingapp.model.enums.Status;
-import com.example.carsharingapp.model.enums.Type;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,10 +30,10 @@ public class Payment {
     private Long id;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status = Status.PENDING;
+    private PaymentStatus status = PaymentStatus.PENDING;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Type type;
+    private PaymentType type;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rental_id", nullable = false)
     private Rental rental;
@@ -46,4 +44,15 @@ public class Payment {
     @Column(name = "amount_to_pay", nullable = false)
     private BigDecimal amountToPay;
     private boolean isDeleted = false;
+
+    public enum PaymentStatus {
+        PENDING,
+        PAID,
+        CANCELED
+    }
+
+    public enum PaymentType {
+        RENTAL_PAYMENT,
+        LATE_RETURN_FINE
+    }
 }

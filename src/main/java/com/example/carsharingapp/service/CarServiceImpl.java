@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -21,6 +22,7 @@ public class CarServiceImpl implements CarService {
     private final CarMapper carMapper;
 
     @Override
+    @Transactional
     public CarDto save(CreateCarRequestDto carRequestDto) {
         Car car = carMapper.toModel(carRequestDto);
         log.info("New car with id {} is created.", car.getId());
@@ -28,12 +30,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CarDto> findAll(Pageable pageable) {
         return carRepository.findAll(pageable).stream()
                 .map(carMapper::toDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CarDto findById(Long id) {
         Car book = carRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find car by id: " + id));
@@ -41,12 +45,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         carRepository.deleteById(id);
         log.info("Car with id {} was deleted.", id);
     }
 
     @Override
+    @Transactional
     public CarDto update(Long id, CreateCarRequestDto carRequestDto) {
         Car car = carRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("There's not car with id: " + id));
@@ -56,6 +62,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public CarDto updateCar(Long id, InventoryDto newInventory) {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Car not found"));

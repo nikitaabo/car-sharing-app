@@ -1,6 +1,5 @@
 package com.example.carsharingapp.model;
 
-import com.example.carsharingapp.model.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -73,5 +72,10 @@ public class User implements UserDetails {
 
     public boolean hasRoleManager() {
         return role.equals(UserRole.MANAGER);
+    }
+
+    public enum UserRole {
+        MANAGER,
+        CUSTOMER;
     }
 }

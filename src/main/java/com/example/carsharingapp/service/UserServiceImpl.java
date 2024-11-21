@@ -9,12 +9,12 @@ import com.example.carsharingapp.exception.EntityNotFoundException;
 import com.example.carsharingapp.exception.RegistrationException;
 import com.example.carsharingapp.mapper.UserMapper;
 import com.example.carsharingapp.model.User;
-import com.example.carsharingapp.model.enums.UserRole;
 import com.example.carsharingapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public UserResponseDto register(UserRegistrationRequestDto registrationRequestDto)
             throws RegistrationException {
         if (userRepository.existsByEmail(registrationRequestDto.getEmail())) {
@@ -33,12 +34,13 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toModel(registrationRequestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.CUSTOMER);
+        user.setRole(User.UserRole.CUSTOMER);
         log.info("New users was registered with id {}", user.getId());
         return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
+    @Transactional
     public UserDto updateUserRole(Long id, UpdateUserRoleRequestDto roleRequestDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto updateUserProfile(UpdateUserProfileRequestDto userProfileRequestDto, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));

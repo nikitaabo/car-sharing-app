@@ -11,6 +11,6 @@ public class RentalDto {
     private LocalDate actualReturnDate;
     private Long carId;
     private Long userId;
-    private Boolean isActive;
+    private boolean isActive;
 }
 

@@ -113,7 +113,7 @@ class RentalServiceTest {
         Rental rental = new Rental();
         RentalDto rentalDto = new RentalDto();
 
-        when(rentalRepository.findById(rentalId)).thenReturn(Optional.of(rental));
+        when(rentalRepository.findByIdWithCar(rentalId)).thenReturn(Optional.of(rental));
         when(rentalMapper.toDto(rental)).thenReturn(rentalDto);
 
         // When
@@ -121,7 +121,7 @@ class RentalServiceTest {
 
         // Then
         assertNotNull(result);
-        verify(rentalRepository, times(1)).findById(rentalId);
+        verify(rentalRepository, times(1)).findByIdWithCar(rentalId);
     }
 
     @Test
@@ -130,7 +130,7 @@ class RentalServiceTest {
         // Given
         Long rentalId = 1L;
 
-        when(rentalRepository.findById(rentalId)).thenReturn(Optional.empty());
+        when(rentalRepository.findByIdWithCar(rentalId)).thenReturn(Optional.empty());
 
         // When / Then
         assertThrows(EntityNotFoundException.class, () -> rentalService.findRentalById(rentalId));
@@ -142,10 +142,10 @@ class RentalServiceTest {
         // Given
         Long rentalId = 1L;
         Rental rental = new Rental();
-        rental.setIsActive(true);
+        rental.setActive(true);
         rental.setCar(new Car());
 
-        when(rentalRepository.findById(rentalId)).thenReturn(Optional.of(rental));
+        when(rentalRepository.findByIdWithCar(rentalId)).thenReturn(Optional.of(rental));
         when(rentalRepository.save(rental)).thenReturn(rental);
 
         RentalDto rentalDto = new RentalDto();
@@ -156,7 +156,7 @@ class RentalServiceTest {
 
         // Then
         assertNotNull(result);
-        assertFalse(rental.getIsActive());
+        assertFalse(rental.isActive());
         assertNotNull(rental.getActualReturnDate());
         verify(rentalRepository, times(1)).save(rental);
     }
@@ -167,9 +167,9 @@ class RentalServiceTest {
         // Given
         Long rentalId = 1L;
         Rental rental = new Rental();
-        rental.setIsActive(false);
+        rental.setActive(false);
 
-        when(rentalRepository.findById(rentalId)).thenReturn(Optional.of(rental));
+        when(rentalRepository.findByIdWithCar(rentalId)).thenReturn(Optional.of(rental));
 
         // When / Then
         assertThrows(ReturnDateException.class, () -> rentalService.setActualReturnDate(rentalId));
@@ -184,11 +184,11 @@ class RentalServiceTest {
 
         Rental rental1 = new Rental();
         rental1.setId(1L);
-        rental1.setIsActive(true);
+        rental1.setActive(true);
 
         Rental rental2 = new Rental();
         rental2.setId(2L);
-        rental2.setIsActive(true);
+        rental2.setActive(true);
 
         List<Rental> rentals = List.of(rental1, rental2);
 

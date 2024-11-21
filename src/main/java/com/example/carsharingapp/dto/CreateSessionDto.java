@@ -1,6 +1,6 @@
 package com.example.carsharingapp.dto;
 
-import com.example.carsharingapp.model.enums.Type;
+import com.example.carsharingapp.model.Payment;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -9,5 +9,5 @@ public class CreateSessionDto {
     @NotNull
     private Long rentalId;
     @NotNull
-    private Type paymentType;
+    private Payment.PaymentType paymentType;
 }

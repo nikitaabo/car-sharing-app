@@ -1,10 +1,18 @@
-package com.example.carsharingapp.exception;
+package com.example.carsharingapp.controller;
 
+import com.example.carsharingapp.exception.ChatNotFoundException;
+import com.example.carsharingapp.exception.EntityNotFoundException;
+import com.example.carsharingapp.exception.PaymentException;
+import com.example.carsharingapp.exception.RegistrationException;
+import com.example.carsharingapp.exception.RentalException;
+import com.example.carsharingapp.exception.ReturnDateException;
 import jakarta.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -88,5 +96,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         ErrorResponse errorResponse = new ErrorResponse("Payment operation failed",
                 ex.getMessage(), "Please, try later.");
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @Data
+    @AllArgsConstructor
+    class ErrorResponse {
+        private String error;
+        private String message;
+        private String additionalMessage;
     }
 }

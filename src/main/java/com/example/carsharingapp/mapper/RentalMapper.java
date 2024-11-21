@@ -15,6 +15,5 @@ public interface RentalMapper {
 
     @Mapping(target = "car", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "isActive", constant = "true")
     Rental toModel(CreateRentalRequestDto createRentalRequestDto);
 }

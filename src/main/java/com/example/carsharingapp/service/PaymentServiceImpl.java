@@ -6,8 +6,6 @@ import com.example.carsharingapp.dto.PaymentSessionDto;
 import com.example.carsharingapp.mapper.PaymentMapper;
 import com.example.carsharingapp.model.Payment;
 import com.example.carsharingapp.model.Rental;
-import com.example.carsharingapp.model.enums.Status;
-import com.example.carsharingapp.model.enums.Type;
 import com.example.carsharingapp.repository.PaymentRepository;
 import com.example.carsharingapp.repository.rental.RentalRepository;
 import com.stripe.model.checkout.Session;
@@ -21,7 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final NotificationService notificationService;
 
     @Override
+    @Transactional(readOnly = true)
     public List<PaymentDto> getPayments(Long userId) {
         return paymentRepository.findAllByRentalUserId(userId).stream()
                 .map(paymentMapper::toDto)
@@ -42,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public PaymentDto createPaymentSession(CreateSessionDto paymentRequest) {
         Rental rental = rentalRepository.findById(paymentRequest.getRentalId())
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found"));
@@ -67,38 +69,45 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.getType(), payment.getRental().getId(),
                 payment.getSessionId(), payment.getStatus());
         log.info(message);
-        notificationService.sendNotification(message);
+        sendNotificationAsync(message);
         return paymentMapper.toDto(paymentRepository.save(payment));
     }
 
     @Override
+    @Transactional
     public void successPayment(String sessionId) {
         Payment payment = paymentRepository.findBySessionId(sessionId).orElseThrow(
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
-        payment.setStatus(Status.PAID);
+        payment.setStatus(Payment.PaymentStatus.PAID);
         log.info("Payment with session id {} is successful.", sessionId);
-        notificationService.sendNotification("Payment with session id {} is successful.");
+        sendNotificationAsync("Payment with session id {} is successful.");
         paymentRepository.save(payment);
     }
 
     @Override
+    @Transactional
     public void cancelPayment(String sessionId) {
         Payment payment = paymentRepository.findBySessionId(sessionId).orElseThrow(
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
-        payment.setStatus(Status.CANCELED);
+        payment.setStatus(Payment.PaymentStatus.CANCELED);
         log.info("Payment with session id {} is canceled.", sessionId);
-        notificationService.sendNotification("Payment with session id {} is canceled.");
+        sendNotificationAsync("Payment with session id {} is canceled.");
         paymentRepository.save(payment);
     }
 
-    private BigDecimal calculateAmount(Rental rental, Type paymentType) {
+    @Async
+    public void sendNotificationAsync(String message) {
+        notificationService.sendNotification(message);
+    }
+
+    private BigDecimal calculateAmount(Rental rental, Payment.PaymentType paymentType) {
         BigDecimal dailyRate = rental.getCar().getDailyFee();
         long days = calculateDays(rental);
         BigDecimal amount = dailyRate.multiply(BigDecimal.valueOf(days));
 
-        if (Type.FINE.equals(paymentType)) {
+        if (Payment.PaymentType.LATE_RETURN_FINE.equals(paymentType)) {
             long overdueDays = calculateOverdueDays(rental);
             BigDecimal fineMultiplier = new BigDecimal(FINE_MULTIPLIER);
             BigDecimal overdueCost = dailyRate.multiply(fineMultiplier)

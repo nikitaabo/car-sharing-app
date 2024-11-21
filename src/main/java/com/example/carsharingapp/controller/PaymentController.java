@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Tag(name = "Payment management", description = "Endpoints for managing payments")
 @Validated
@@ -42,6 +44,7 @@ public class PaymentController {
     @ResponseBody
     @Operation(summary = "Create a payment session",
             description = "Create a payment session to work with Stripe")
+    @ResponseStatus(HttpStatus.CREATED)
     public PaymentDto createSession(@Valid @RequestBody CreateSessionDto paymentRequest) {
         return paymentService.createPaymentSession(paymentRequest);
     }

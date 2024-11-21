@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.carsharingapp.dto.UpdateUserProfileRequestDto;
 import com.example.carsharingapp.dto.UpdateUserRoleRequestDto;
 import com.example.carsharingapp.dto.UserDto;
-import com.example.carsharingapp.model.enums.UserRole;
+import com.example.carsharingapp.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -57,7 +57,7 @@ public class UserControllerTest {
         // Given
         long userId = 1L;
         UpdateUserRoleRequestDto roleRequestDto = new UpdateUserRoleRequestDto();
-        roleRequestDto.setRole(UserRole.MANAGER);
+        roleRequestDto.setRole(User.UserRole.MANAGER);
 
         String jsonRequest = objectMapper.writeValueAsString(roleRequestDto);
 
@@ -72,7 +72,7 @@ public class UserControllerTest {
         UserDto response = objectMapper.readValue(
                 result.getResponse().getContentAsString(), UserDto.class);
         assertNotNull(response);
-        assertEquals(UserRole.MANAGER, response.getRole());
+        assertEquals(User.UserRole.MANAGER, response.getRole());
     }
 
     @WithUserDetails("user@gmail.com")

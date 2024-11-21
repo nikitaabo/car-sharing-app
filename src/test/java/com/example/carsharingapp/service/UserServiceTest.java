@@ -15,7 +15,6 @@ import com.example.carsharingapp.dto.UserResponseDto;
 import com.example.carsharingapp.exception.RegistrationException;
 import com.example.carsharingapp.mapper.UserMapper;
 import com.example.carsharingapp.model.User;
-import com.example.carsharingapp.model.enums.UserRole;
 import com.example.carsharingapp.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +48,7 @@ public class UserServiceTest {
         user.setId(1L);
         user.setEmail(registrationRequestDto.getEmail());
         user.setPassword("encodedPassword");
-        user.setRole(UserRole.CUSTOMER);
+        user.setRole(User.UserRole.CUSTOMER);
 
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setId(1L);
@@ -82,15 +81,15 @@ public class UserServiceTest {
         // Given
         Long userId = 1L;
         UpdateUserRoleRequestDto roleRequestDto = new UpdateUserRoleRequestDto();
-        roleRequestDto.setRole(UserRole.MANAGER);
+        roleRequestDto.setRole(User.UserRole.MANAGER);
 
         User user = new User();
         user.setId(userId);
-        user.setRole(UserRole.CUSTOMER);
+        user.setRole(User.UserRole.CUSTOMER);
 
         UserDto userDto = new UserDto();
         userDto.setId(userId);
-        userDto.setRole(UserRole.MANAGER);
+        userDto.setRole(User.UserRole.MANAGER);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(user);
@@ -101,7 +100,7 @@ public class UserServiceTest {
 
         // Then
         assertNotNull(result);
-        assertEquals(UserRole.MANAGER, result.getRole());
+        assertEquals(User.UserRole.MANAGER, result.getRole());
         verify(userRepository, times(1)).findById(userId);
         verify(userRepository, times(1)).save(user);
         verify(userMapper, times(1)).toUserDto(user);
