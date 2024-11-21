@@ -11,10 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Authentication", description = "Endpoints for authentication users")
 @RestController
@@ -27,6 +25,7 @@ public class AuthenticationController {
     @PostMapping("/registration")
     @Operation(summary = "Register a new users",
             description = "Create a new users and save it in DB")
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponseDto registerUser(@RequestBody @Valid UserRegistrationRequestDto request)
             throws RegistrationException {
         return userService.register(request);
