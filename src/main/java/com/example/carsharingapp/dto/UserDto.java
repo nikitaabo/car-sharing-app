@@ -1,6 +1,6 @@
 package com.example.carsharingapp.dto;
 
-import com.example.carsharingapp.model.enums.UserRole;
+import com.example.carsharingapp.model.User;
 import lombok.Data;
 
 @Data
@@ -9,6 +9,6 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
-    private UserRole role;
+    private User.UserRole role;
 }
 

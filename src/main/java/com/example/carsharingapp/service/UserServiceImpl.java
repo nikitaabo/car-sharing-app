@@ -9,7 +9,6 @@ import com.example.carsharingapp.exception.EntityNotFoundException;
 import com.example.carsharingapp.exception.RegistrationException;
 import com.example.carsharingapp.mapper.UserMapper;
 import com.example.carsharingapp.model.User;
-import com.example.carsharingapp.model.enums.UserRole;
 import com.example.carsharingapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toModel(registrationRequestDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.CUSTOMER);
+        user.setRole(User.UserRole.CUSTOMER);
         log.info("New users was registered with id {}", user.getId());
         return userMapper.toDto(userRepository.save(user));
     }

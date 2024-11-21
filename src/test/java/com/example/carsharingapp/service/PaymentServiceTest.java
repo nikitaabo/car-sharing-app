@@ -15,8 +15,6 @@ import com.example.carsharingapp.mapper.PaymentMapper;
 import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.Payment;
 import com.example.carsharingapp.model.Rental;
-import com.example.carsharingapp.model.enums.Status;
-import com.example.carsharingapp.model.enums.Type;
 import com.example.carsharingapp.repository.PaymentRepository;
 import com.example.carsharingapp.repository.rental.RentalRepository;
 import com.stripe.model.checkout.Session;
@@ -79,7 +77,7 @@ class PaymentServiceTest {
         // Given
         CreateSessionDto paymentRequest = new CreateSessionDto();
         paymentRequest.setRentalId(1L);
-        paymentRequest.setPaymentType(Type.FINE);
+        paymentRequest.setPaymentType(Payment.PaymentType.LATE_RETURN_FINE);
 
         Rental rental = new Rental();
         rental.setId(1L);
@@ -124,7 +122,7 @@ class PaymentServiceTest {
         String sessionId = "session_id";
         Payment payment = new Payment();
         payment.setSessionId(sessionId);
-        payment.setStatus(Status.PENDING);
+        payment.setStatus(Payment.PaymentStatus.PENDING);
 
         when(paymentRepository.findBySessionId(sessionId)).thenReturn(Optional.of(payment));
 
@@ -132,7 +130,7 @@ class PaymentServiceTest {
         paymentService.successPayment(sessionId);
 
         // Then
-        assertEquals(Status.PAID, payment.getStatus());
+        assertEquals(Payment.PaymentStatus.PAID, payment.getStatus());
         verify(paymentRepository, times(1)).findBySessionId(sessionId);
         verify(paymentRepository, times(1)).save(payment);
         verify(notificationService, times(1)).sendNotification(anyString());
@@ -145,7 +143,7 @@ class PaymentServiceTest {
         String sessionId = "session_id";
         Payment payment = new Payment();
         payment.setSessionId(sessionId);
-        payment.setStatus(Status.PENDING);
+        payment.setStatus(Payment.PaymentStatus.PENDING);
 
         when(paymentRepository.findBySessionId(sessionId)).thenReturn(Optional.of(payment));
 
@@ -153,7 +151,7 @@ class PaymentServiceTest {
         paymentService.cancelPayment(sessionId);
 
         // Then
-        assertEquals(Status.CANCELED, payment.getStatus());
+        assertEquals(Payment.PaymentStatus.CANCELED, payment.getStatus());
         verify(paymentRepository, times(1)).findBySessionId(sessionId);
         verify(paymentRepository, times(1)).save(payment);
         verify(notificationService, times(1)).sendNotification(anyString());

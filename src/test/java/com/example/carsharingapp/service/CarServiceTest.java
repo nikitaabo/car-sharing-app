@@ -13,7 +13,6 @@ import com.example.carsharingapp.dto.InventoryDto;
 import com.example.carsharingapp.exception.EntityNotFoundException;
 import com.example.carsharingapp.mapper.CarMapper;
 import com.example.carsharingapp.model.Car;
-import com.example.carsharingapp.model.enums.CarType;
 import com.example.carsharingapp.repository.CarRepository;
 import java.math.BigDecimal;
 import java.util.List;
@@ -42,12 +41,12 @@ public class CarServiceTest {
     public void saveCar_ValidData_ShouldReturnSavedCarDto() {
         // Given
         CreateCarRequestDto carRequestDto = CarServiceTestUtil.getCarRequestDto("Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
 
         Car car = CarServiceTestUtil.getCar("Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
         CarDto carDto = CarServiceTestUtil.getCarDto(1L, "Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
 
         when(carMapper.toModel(carRequestDto)).thenReturn(car);
         when(carRepository.save(car)).thenReturn(car);
@@ -90,9 +89,9 @@ public class CarServiceTest {
     void findById_ExistingCar_ShouldReturnCarDto() {
         // Given
         Car car = CarServiceTestUtil.getCar("Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
         CarDto carDto = CarServiceTestUtil.getCarDto(1L, "Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
         when(carMapper.toDto(car)).thenReturn(carDto);
@@ -136,11 +135,11 @@ public class CarServiceTest {
         // Given
         InventoryDto inventoryDto = new InventoryDto(15);
         Car car = CarServiceTestUtil.getCar("Tesla", "Model S",
-                CarType.SEDAN, 5, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 5, BigDecimal.valueOf(50));
         Car updatedCar = CarServiceTestUtil.getCar("Tesla", "Model S",
-                CarType.SEDAN, 15, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 15, BigDecimal.valueOf(50));
         CarDto carDto = CarServiceTestUtil.getCarDto(1L, "Tesla", "Model S",
-                CarType.SEDAN, 15, BigDecimal.valueOf(50));
+                Car.CarType.SEDAN, 15, BigDecimal.valueOf(50));
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
         when(carRepository.save(car)).thenReturn(updatedCar);

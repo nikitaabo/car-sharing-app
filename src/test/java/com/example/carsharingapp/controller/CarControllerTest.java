@@ -16,7 +16,7 @@ import com.example.carsharingapp.dto.CarDto;
 import com.example.carsharingapp.dto.CreateCarRequestDto;
 import com.example.carsharingapp.dto.InventoryDto;
 import com.example.carsharingapp.exception.EntityNotFoundException;
-import com.example.carsharingapp.model.enums.CarType;
+import com.example.carsharingapp.model.Car.CarType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

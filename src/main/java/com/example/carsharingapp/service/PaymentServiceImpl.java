@@ -6,8 +6,6 @@ import com.example.carsharingapp.dto.PaymentSessionDto;
 import com.example.carsharingapp.mapper.PaymentMapper;
 import com.example.carsharingapp.model.Payment;
 import com.example.carsharingapp.model.Rental;
-import com.example.carsharingapp.model.enums.Status;
-import com.example.carsharingapp.model.enums.Type;
 import com.example.carsharingapp.repository.PaymentRepository;
 import com.example.carsharingapp.repository.rental.RentalRepository;
 import com.stripe.model.checkout.Session;
@@ -76,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentRepository.findBySessionId(sessionId).orElseThrow(
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
-        payment.setStatus(Status.PAID);
+        payment.setStatus(Payment.PaymentStatus.PAID);
         log.info("Payment with session id {} is successful.", sessionId);
         notificationService.sendNotification("Payment with session id {} is successful.");
         paymentRepository.save(payment);
@@ -87,18 +85,18 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentRepository.findBySessionId(sessionId).orElseThrow(
                 () -> new EntityNotFoundException("There is no a payment with session id "
                         + sessionId));
-        payment.setStatus(Status.CANCELED);
+        payment.setStatus(Payment.PaymentStatus.CANCELED);
         log.info("Payment with session id {} is canceled.", sessionId);
         notificationService.sendNotification("Payment with session id {} is canceled.");
         paymentRepository.save(payment);
     }
 
-    private BigDecimal calculateAmount(Rental rental, Type paymentType) {
+    private BigDecimal calculateAmount(Rental rental, Payment.PaymentType paymentType) {
         BigDecimal dailyRate = rental.getCar().getDailyFee();
         long days = calculateDays(rental);
         BigDecimal amount = dailyRate.multiply(BigDecimal.valueOf(days));
 
-        if (Type.FINE.equals(paymentType)) {
+        if (Payment.PaymentType.LATE_RETURN_FINE.equals(paymentType)) {
             long overdueDays = calculateOverdueDays(rental);
             BigDecimal fineMultiplier = new BigDecimal(FINE_MULTIPLIER);
             BigDecimal overdueCost = dailyRate.multiply(fineMultiplier)
