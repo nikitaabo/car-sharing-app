@@ -84,7 +84,7 @@ public class CarControllerTest {
         MvcResult result = mockMvc.perform(post("/cars")
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn();
 
         // Then
