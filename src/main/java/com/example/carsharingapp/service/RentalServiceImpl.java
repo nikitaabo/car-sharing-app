@@ -72,6 +72,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RentalDto> findRentals(Long userId, boolean isActive) {
         Specification<Rental> spec = RentalSpecification.byUserAndStatus(userId, isActive);
         return rentalRepository.findAll(spec).stream()
@@ -80,6 +81,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RentalDto findRentalById(Long id) {
         Rental rental = rentalRepository.findByIdWithCar(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + id));

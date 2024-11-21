@@ -1,7 +1,6 @@
 package com.example.carsharingapp.service;
 
 import com.example.carsharingapp.dto.PaymentSessionDto;
-import com.example.carsharingapp.exception.BookingException;
 import com.example.carsharingapp.exception.PaymentException;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -11,7 +10,6 @@ import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
