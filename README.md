@@ -38,6 +38,17 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 ---
 
+## Structure of DB
+### **ER-diagram of database tables**
+![car_sharing_db](https://github.com/user-attachments/assets/83657a7d-d721-4b96-a6cd-4beaf8f78bea)
+
+### **Relations between entities**
+* Payment - Rental : OneToOne
+* Rental - Car : OneToOne
+* Rental - User : ManyToOne
+
+---
+
 ## How to Run the Project
 
 ### **Prerequisites**
