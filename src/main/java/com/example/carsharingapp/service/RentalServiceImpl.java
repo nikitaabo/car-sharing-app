@@ -81,7 +81,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public RentalDto findRentalById(Long id) {
-        Rental rental = rentalRepository.findById(id)
+        Rental rental = rentalRepository.findByIdWithCar(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + id));
         return rentalMapper.toDto(rental);
     }
@@ -89,15 +89,15 @@ public class RentalServiceImpl implements RentalService {
     @Override
     @Transactional
     public RentalDto setActualReturnDate(Long id) {
-        Rental rental = rentalRepository.findById(id)
+        Rental rental = rentalRepository.findByIdWithCar(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rental not found with ID: " + id));
 
-        if (!rental.getIsActive()) {
+        if (!rental.isActive()) {
             throw new ReturnDateException("Rental is already completed");
         }
 
         rental.setActualReturnDate(LocalDate.now());
-        rental.setIsActive(false);
+        rental.setActive(false);
 
         Car car = rental.getCar();
         car.setInventory(car.getInventory() + 1);

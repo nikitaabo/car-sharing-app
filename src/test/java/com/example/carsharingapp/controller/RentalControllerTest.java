@@ -130,6 +130,6 @@ public class RentalControllerTest {
                 result.getResponse().getContentAsString(), RentalDto.class);
         assertNotNull(response);
         assertEquals(response.getId().longValue(), rentalId);
-        assertFalse(response.getIsActive());
+        assertFalse(response.isActive());
     }
 }
