@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,14 +54,21 @@ public class RentalServiceImpl implements RentalService {
 
         car.setInventory(car.getInventory() - 1);
         carRepository.save(car);
+        Rental savedRental = rentalRepository.save(rental);
+
         String message = String.format("New rentals created:\nUser ID: %d\nCar ID: %d"
                         + "\nRental Date: %s\nReturn Date: %s",
                 userId, rentalRequestDto.getCarId(),
                 rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
         log.info(message);
-        notificationService.sendNotification(message);
+        sendNotificationAsync(message);
 
-        return rentalMapper.toDto(rentalRepository.save(rental));
+        return rentalMapper.toDto(savedRental);
+    }
+
+    @Async
+    public void sendNotificationAsync(String message) {
+        notificationService.sendNotification(message);
     }
 
     @Override

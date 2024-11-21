@@ -1,5 +1,6 @@
 package com.example.carsharingapp.service;
 
+import com.example.carsharingapp.exception.ChatNotFoundException;
 import com.example.carsharingapp.exception.NotificationBotSendMessageException;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,7 +69,7 @@ public class NotificationBot extends TelegramLongPollingBot {
     private String getChatId() {
         return activeChatIds.stream()
                 .findFirst()
-                .orElseThrow(null);
+                .orElseThrow(() -> new ChatNotFoundException("Chat ID not found"));
     }
 
     @Override

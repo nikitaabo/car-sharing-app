@@ -46,7 +46,8 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(RegistrationException.class)
     public ResponseEntity<Object> handleRegistrationException(RegistrationException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Registration failed", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("Registration failed", ex.getMessage(),
+                null);
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
@@ -63,14 +64,29 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(RentalException.class)
     public ResponseEntity<Object> handleRentalException(RentalException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Rental failed", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("Rental failed", ex.getMessage(),
+                null);
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(ReturnDateException.class)
     public ResponseEntity<Object> handleReturnDateException(ReturnDateException ex) {
         ErrorResponse errorResponse = new ErrorResponse("Setting return date failed",
-                ex.getMessage());
+                ex.getMessage(), null);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ChatNotFoundException.class)
+    public ResponseEntity<Object> handleChatNotFoundException(ChatNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Chat Not Found",
+                ex.getMessage(), "Please, launch your telegram bot.");
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<Object> handlePaymentException(PaymentException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Payment operation failed",
+                ex.getMessage(), "Please, try later.");
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 }
