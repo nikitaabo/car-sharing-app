@@ -70,22 +70,6 @@ public class StripeService {
         }
     }
 
-    public Boolean isSessionPaid(String sessionId) {
-        try {
-            return Objects.equals(Session.retrieve(sessionId).getPaymentStatus(), STATUS_PAID);
-        } catch (StripeException ex) {
-            throw new PaymentException("Cant find stripe session");
-        }
-    }
-
-    public void expireSession(String sessionId) {
-        try {
-            Session.retrieve(sessionId).expire();
-        } catch (StripeException e) {
-            throw new BookingException("Unsuccessful try to expire stripe session", e);
-        }
-    }
-
     private long getExpirationTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime expirationTime = currentTime.plusMinutes(EXPIRATION_TIME_IN_MINUTES);
