@@ -5,15 +5,14 @@ import com.example.carsharingapp.repository.rental.RentalRepository;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RentalOverdueChecker {
-    private static final Logger logger = LoggerFactory.getLogger(RentalOverdueChecker.class);
     private final RentalRepository rentalRepository;
     private final NotificationService notificationService;
 
@@ -25,7 +24,7 @@ public class RentalOverdueChecker {
         List<Rental> overdueRentals = rentalRepository.findOverdueRentals(tomorrow);
 
         if (overdueRentals.isEmpty()) {
-            logger.info("Sending a notification about no overdue rentals");
+            log.info("Sending a notification about no overdue rentals");
             notificationService.sendNotification("No rentals overdue today!");
         } else {
             overdueRentals.forEach(rental -> {
@@ -40,7 +39,7 @@ public class RentalOverdueChecker {
                         rental.getReturnDate(),
                         rental.getActualReturnDate()
                 );
-                logger.info("Sending a notification about overdue rentals");
+                log.info("Sending a notification about overdue rentals");
                 notificationService.sendNotification(message);
             });
         }

@@ -8,23 +8,25 @@ import com.example.carsharingapp.mapper.RentalMapper;
 import com.example.carsharingapp.model.Car;
 import com.example.carsharingapp.model.Rental;
 import com.example.carsharingapp.model.User;
-import com.example.carsharingapp.repository.car.CarRepository;
+import com.example.carsharingapp.repository.CarRepository;
+import com.example.carsharingapp.repository.UserRepository;
 import com.example.carsharingapp.repository.rental.RentalRepository;
-import com.example.carsharingapp.repository.user.UserRepository;
+import com.example.carsharingapp.repository.rental.RentalSpecification;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class RentalServiceImpl implements RentalService {
-    private static final Logger logger = LoggerFactory.getLogger(RentalServiceImpl.class);
     private final RentalRepository rentalRepository;
     private final CarRepository carRepository;
     private final UserRepository userRepository;
@@ -52,28 +54,27 @@ public class RentalServiceImpl implements RentalService {
 
         car.setInventory(car.getInventory() - 1);
         carRepository.save(car);
+        Rental savedRental = rentalRepository.save(rental);
+
         String message = String.format("New rentals created:\nUser ID: %d\nCar ID: %d"
                         + "\nRental Date: %s\nReturn Date: %s",
                 userId, rentalRequestDto.getCarId(),
                 rentalRequestDto.getRentalDate(), rentalRequestDto.getReturnDate());
-        logger.info(message);
+        log.info(message);
+        sendNotificationAsync(message);
+
+        return rentalMapper.toDto(savedRental);
+    }
+
+    @Async
+    public void sendNotificationAsync(String message) {
         notificationService.sendNotification(message);
-
-        return rentalMapper.toDto(rentalRepository.save(rental));
     }
 
     @Override
-    public List<RentalDto> findRentalsByUserAndStatus(Long userId, boolean isActive) {
-        List<Rental> rentals = rentalRepository.findByUserIdAndIsActive(userId, isActive);
-        return rentals.stream()
-                .map(rentalMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RentalDto> findRentalsByStatus(boolean isActive) {
-        List<Rental> rentals = rentalRepository.findByIsActive(isActive);
-        return rentals.stream()
+    public List<RentalDto> findRentals(Long userId, boolean isActive) {
+        Specification<Rental> spec = RentalSpecification.byUserAndStatus(userId, isActive);
+        return rentalRepository.findAll(spec).stream()
                 .map(rentalMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -103,7 +104,7 @@ public class RentalServiceImpl implements RentalService {
         carRepository.save(car);
 
         Rental updatedRental = rentalRepository.save(rental);
-        logger.info("Actual return date of rentals with id {} is set, return date is {}",
+        log.info("Actual return date of rentals with id {} is set, return date is {}",
                 id, rental.getReturnDate());
         return rentalMapper.toDto(updatedRental);
     }

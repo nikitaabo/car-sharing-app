@@ -17,7 +17,7 @@ import com.example.carsharingapp.model.Payment;
 import com.example.carsharingapp.model.Rental;
 import com.example.carsharingapp.model.enums.Status;
 import com.example.carsharingapp.model.enums.Type;
-import com.example.carsharingapp.repository.payment.PaymentRepository;
+import com.example.carsharingapp.repository.PaymentRepository;
 import com.example.carsharingapp.repository.rental.RentalRepository;
 import com.stripe.model.checkout.Session;
 import java.math.BigDecimal;
