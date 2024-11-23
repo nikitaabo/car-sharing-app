@@ -1,13 +1,13 @@
 # Car Sharing Service App
 
-## Project Overview
+## Project Overview 📝
 
 Welcome to the **Car Sharing Service App**!  
 This application is designed to simplify vehicle rentals, providing a seamless experience for both customers and administrators. Customers can search for available vehicles, make bookings, and manage their rentals, while administrators oversee vehicle listings and manage rental operations.
 
 ---
 
-## Technologies Used
+## Technologies Used 🧑🏻‍💻
 
 - **Spring Boot** - Backend framework for building the core application. Version - 3.3.5  
 - **Spring Security** - For managing authentication and authorization. Version - 3.3.5    
@@ -24,21 +24,21 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 ---
 
-## Key Functionalities
+## Key Functionalities 🔑
 
-### **User Features**
+📌 ### **User Features**
 - **Vehicle Browsing:** Users can view a list of available vehicles with details such as brand, model, type, and daily fee.  
 - **Booking Management:** Users can book vehicles, and view active bookings.  
 - **Notifications:** Users receive Telegram notifications about booking confirmations and reminders.
 - **Online payments:** Users can create online payments and pay for a rental.
 
-### **Admin Features**
+📌 ### **Admin Features**
 - **Vehicle Management:** Admins can add, update, or remove vehicles from the system.  
 - **Booking Oversight:** Admins can view all bookings, and modify their statuses.
 
 ---
 
-## Structure of DB
+## Structure of DB 📁
 ### **ER-diagram of database tables**
 ![car_sharing_db](https://github.com/user-attachments/assets/83657a7d-d721-4b96-a6cd-4beaf8f78bea)
 
@@ -49,7 +49,7 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 ---
 
-## How to Run the Project
+## How to Run the Project 🚀
 
 ### **Prerequisites**
 - Java 17 or higher  
@@ -93,12 +93,12 @@ Use Docker Compose to set up the containers:
 ```
 The application will be accessible at `http://localhost:<SPRING_LOCAL_PORT>/`.
 
-## Running Tests
+## Running Tests ✅
 To run unit and integration tests using Testcontainers:
 ```bash
 mvn clean test
 ```
-## API Documentation
+## API Documentation 📑
 Swagger UI is available for testing the API and is accessible at:
 `http://localhost:<SPRING_LOCAL_PORT>/swagger-ui.html`.
 
@@ -108,32 +108,32 @@ This documentation includes endpoints for:
 * Booking vehicles
 * Managing rentals and users
 
-## Challenges faced 
-### Telegram Bot Integration
+## Challenges faced 💥
+🤖 ### Telegram Bot Integration
 Challenge:
 Configuring the Telegram bot for notifications was tricky due to incorrect token and username settings.
 Solution:
 Validated token and username using Telegram's BotFather and reconfigured initialization logic to handle errors gracefully.
 
-### Database Migration Issues
+👨🏻‍💻 ### Database Migration Issues
 Challenge:
 Liquibase migrations occasionally failed due to misconfigured YAML scripts.
 Solution:
 Reviewed and corrected migration scripts locally before deploying them to production environments.
 
-### Testing with Docker
+🐳 ### Testing with Docker
 Challenge:
 Setting up isolated testing environments using Testcontainers required precise database configurations.
 Solution:
 Leveraged official documentation and examples to ensure smooth integration with MySQL and Docker.
 
-### Stripe API Integration
+🧾 ### Stripe API Integration
 Challenge:
 There was a need to provide an opportunity to create online payments for rentals.
 Solution:
 Leveraged official documentation and examples to ensure smooth integration with the application.
 
-## Postman Collection
+## Postman Collection 📋
 A Postman collection with all API requests for testing and interacting with the application is included in the project.
 
 ### How to Use
