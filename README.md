@@ -26,13 +26,13 @@ This application is designed to simplify vehicle rentals, providing a seamless e
 
 ## Key Functionalities 🔑
 
-📌 ### **User Features**
+📌 **User Features**
 - **Vehicle Browsing:** Users can view a list of available vehicles with details such as brand, model, type, and daily fee.  
 - **Booking Management:** Users can book vehicles, and view active bookings.  
 - **Notifications:** Users receive Telegram notifications about booking confirmations and reminders.
 - **Online payments:** Users can create online payments and pay for a rental.
 
-📌 ### **Admin Features**
+📌 **Admin Features**
 - **Vehicle Management:** Admins can add, update, or remove vehicles from the system.  
 - **Booking Oversight:** Admins can view all bookings, and modify their statuses.
 
@@ -115,19 +115,19 @@ Configuring the Telegram bot for notifications was tricky due to incorrect token
 Solution:
 Validated token and username using Telegram's BotFather and reconfigured initialization logic to handle errors gracefully.
 
-👨🏻‍💻 ### Database Migration Issues
+👨🏻‍💻 Database Migration Issues
 Challenge:
 Liquibase migrations occasionally failed due to misconfigured YAML scripts.
 Solution:
 Reviewed and corrected migration scripts locally before deploying them to production environments.
 
-🐳 ### Testing with Docker
+🐳 Testing with Docker
 Challenge:
 Setting up isolated testing environments using Testcontainers required precise database configurations.
 Solution:
 Leveraged official documentation and examples to ensure smooth integration with MySQL and Docker.
 
-🧾 ### Stripe API Integration
+🧾 Stripe API Integration
 Challenge:
 There was a need to provide an opportunity to create online payments for rentals.
 Solution:
