@@ -109,7 +109,7 @@ This documentation includes endpoints for:
 * Managing rentals and users
 
 ## Challenges faced 💥
-🤖 ### Telegram Bot Integration
+🤖 Telegram Bot Integration
 Challenge:
 Configuring the Telegram bot for notifications was tricky due to incorrect token and username settings.
 Solution:
